@@ -14,6 +14,7 @@ import Colors from "../constants/Colors";
 
 import MainTabNavigator from "./MainTabNavigator";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
+import ContactsScreen from "../screens/ContactsScreen";
 
 const RootStack = createStackNavigator();
 
@@ -83,6 +84,7 @@ export default () => {
             ),
           })}
         />
+        <RootStack.Screen name="Contacts" component={ContactsScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
