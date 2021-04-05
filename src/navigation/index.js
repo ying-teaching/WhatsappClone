@@ -10,7 +10,7 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 
-import colors from "../constants/Colors";
+import Colors from "../constants/Colors";
 
 import MainTabNavigator from "./MainTabNavigator";
 import ChatRoomScreen from "../screens/ChatRoomScreen";
@@ -23,11 +23,11 @@ export default () => {
       <RootStack.Navigator
         screenOptions={{
           headerStyle: {
-            backgroundColor: colors.TINT_GREEN,
+            backgroundColor: Colors.TINT_GREEN,
             shadowOpacity: 0, // remove shadow on iOS
             elevation: 0, // remove shadow on Android
           },
-          headerTintColor: colors.BLACK,
+          headerTintColor: Colors.BLACK,
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontWeight: "bold",
