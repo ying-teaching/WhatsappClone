@@ -28,7 +28,7 @@ export default () => {
             shadowOpacity: 0, // remove shadow on iOS
             elevation: 0, // remove shadow on Android
           },
-          headerTintColor: Colors.BLACK,
+          headerTintColor: Colors.WHITE,
           headerTitleAlign: "left",
           headerTitleStyle: {
             fontWeight: "bold",
