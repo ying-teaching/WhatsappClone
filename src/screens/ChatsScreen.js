@@ -1,10 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+
+import ChatListItem from "../components/ChatListItem";
+import chatRooms from "../../data/ChatRooms";
 
 export default function ChatsScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chats Screen</Text>
+      <FlatList
+        data={chatRooms}
+        renderItem={({ item }) => <ChatListItem chatRoom={item} />}
+      />
     </View>
   );
 }
@@ -14,9 +20,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
 });

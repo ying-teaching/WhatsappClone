@@ -33,7 +33,7 @@ export default function MainTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Fontisto name="camera" color={color} size={18} />
           ),
-          tabBarLabel: () => null,
+          tabBarLabel: () => null, // hide the tab bar label
         }}
       />
       <MainTab.Screen name="Chats" component={ChatsScreen} />
