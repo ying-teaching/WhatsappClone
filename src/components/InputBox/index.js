@@ -33,10 +33,6 @@ const InputBox = ({ chatRoomId }) => {
     fetchUser();
   }, []);
 
-  const onMicrophonePress = () => {
-    console.warn("Microphone record");
-  };
-
   const updateChatRoomLastMessage = async (messageId) => {
     try {
       await API.graphql(
@@ -75,7 +71,7 @@ const InputBox = ({ chatRoomId }) => {
 
   const onPress = () => {
     if (!message) {
-      onMicrophonePress();
+      console.warn("Record voice message...");
     } else {
       onSendPress();
     }
@@ -83,7 +79,7 @@ const InputBox = ({ chatRoomId }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={100}
       style={{ width: "100%" }}
     >

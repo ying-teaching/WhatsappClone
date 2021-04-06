@@ -24,8 +24,9 @@ export default function ChatRoomScreen() {
       })
     );
 
-    console.log("fetched messages.");
-    setMessages(messagesData.data.messagesByChatRoom.items);
+    const items = messagesData.data.messagesByChatRoom.items;
+    console.log(`fetched ${items.length} messages.`);
+    setMessages(items);
   }
 
   async function getMyId() {
@@ -58,8 +59,6 @@ export default function ChatRoomScreen() {
     getMyId();
     return subscribeMessages();
   }, []);
-
-  console.log(`messages in state: ${messages.length}`);
 
   return (
     <ImageBackground style={{ width: "100%", height: "100%" }} source={BG}>
