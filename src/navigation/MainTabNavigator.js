@@ -4,7 +4,7 @@ import { Fontisto } from "@expo/vector-icons";
 
 import COLORS from "../constants/Colors";
 import ChatRoomsScreen from "../components/ChatRooms/ChatRoomsScreen";
-import UnderConstructionScreen from "../screens/UnderConstructionScreen";
+import UnderConstructionScreen from "../components/UnderConstruction/UnderConstructionScreen";
 
 const MainTab = createMaterialTopTabNavigator();
 

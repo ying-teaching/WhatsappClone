@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import { API, graphqlOperation, Auth } from "aws-amplify";
 import { createChatRoom, createChatRoomUser } from "../../graphql/mutations";
 
-const ContactListItem = ({ user }) => {
+export default function ContactListItem({ user }) {
   const navigation = useNavigation();
 
   const onClick = async () => {
@@ -29,6 +29,7 @@ const ContactListItem = ({ user }) => {
       }
 
       const newChatRoom = newChatRoomData.data.createChatRoom;
+      console.log(newChatRoom);
 
       // 2. Add `user` to the Chat Room
       await API.graphql(
@@ -63,19 +64,15 @@ const ContactListItem = ({ user }) => {
   return (
     <TouchableWithoutFeedback onPress={onClick}>
       <View style={styles.container}>
-        <View style={styles.lefContainer}>
-          <Image source={{ uri: user.imageUri }} style={styles.avatar} />
+        <Image source={{ uri: user.imageUri }} style={styles.avatar} />
 
-          <View style={styles.midContainer}>
-            <Text style={styles.username}>{user.name}</Text>
-            <Text numberOfLines={2} style={styles.status}>
-              {user.status}
-            </Text>
-          </View>
+        <View style={styles.midContainer}>
+          <Text style={styles.username}>{user.name}</Text>
+          <Text numberOfLines={2} style={styles.status}>
+            {user.status}
+          </Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
   );
-};
-
-export default ContactListItem;
+}

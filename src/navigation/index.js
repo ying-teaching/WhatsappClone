@@ -6,7 +6,7 @@ import { screenOptions, homeOptions, chatRoomOptions } from "./options";
 
 import MainTabNavigator from "./MainTabNavigator";
 import ChatRoomScreen from "../components/ChatRoom/ChatRoomScreen";
-import ContactsScreen from "../screens/ContactsScreen";
+import ContactsScreen from "../components/Contacts/ContactsScreen";
 
 const RootStack = createStackNavigator();
 

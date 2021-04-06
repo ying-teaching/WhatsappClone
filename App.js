@@ -12,16 +12,7 @@ import { withAuthenticator } from "aws-amplify-react-native";
 import { getUser } from "./src/graphql/queries";
 import { createUser } from "./src/graphql/mutations";
 
-function getRandomImage() {
-  const randomImages = [
-    "https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg",
-    "https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg",
-    "https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg",
-    "https://hieumobile.com/wp-content/uploads/avatar-among-us-9.jpg",
-  ];
-
-  return randomImages[Math.floor(Math.random() * randomImages.length)];
-}
+const randomIcon = "https://placeimg.com/32/32/any";
 
 // useEffect only receives synchronous function thus define an async
 // and call this async in a sync call
@@ -46,7 +37,7 @@ async function fetchUser() {
       const newUser = {
         id: userInfo.attributes.sub,
         name,
-        imageUri: getRandomImage(),
+        imageUri: randomIcon,
         status: "Hey, I am using WhatsApp",
       };
 

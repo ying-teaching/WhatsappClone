@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { API, graphqlOperation } from "aws-amplify";
 
-import { listUsers } from "../graphql/queries";
-import ContactListItem from "../components/ContactListItem";
+import { listUsers } from "../../graphql/queries";
+import ContactListItem from "./ContactListItem";
 
 export default function ChatsScreen() {
   const [users, setUsers] = useState([]);
