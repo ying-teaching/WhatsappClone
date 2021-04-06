@@ -5,7 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { screenOptions, homeOptions, chatRoomOptions } from "./options";
 
 import MainTabNavigator from "./MainTabNavigator";
-import ChatRoomScreen from "../screens/ChatRoomScreen";
+import ChatRoomScreen from "../components/ChatRoom/ChatRoomScreen";
 import ContactsScreen from "../screens/ContactsScreen";
 
 const RootStack = createStackNavigator();

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList } from "react-native";
 
-import ChatListItem from "./ChatListItem";
+import ChatRoomsItem from "./ChatRoomsItem";
 import NewMessageButton from "../NewMessageButton";
 
 import { API, graphqlOperation, Auth } from "aws-amplify";
@@ -35,7 +35,7 @@ export default function ChatRoomsScreen() {
     <View style={styles.screen}>
       <FlatList
         data={chatRooms}
-        renderItem={({ item }) => <ChatListItem chatRoom={item.chatRoom} />}
+        renderItem={({ item }) => <ChatRoomsItem chatRoom={item.chatRoom} />}
         keyExtractor={(item) => item.id}
       />
       <NewMessageButton />

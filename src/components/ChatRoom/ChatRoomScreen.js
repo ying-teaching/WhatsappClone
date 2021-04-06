@@ -4,18 +4,19 @@ import { FlatList, ImageBackground } from "react-native";
 import { useRoute } from "@react-navigation/native";
 
 import { API, graphqlOperation, Auth } from "aws-amplify";
+import { messagesByChatRoom } from "../../graphql/queries";
+import { onCreateMessage } from "../../graphql/subscriptions";
 
-import ChatMessage from "../components/ChatMessage";
-import BG from "../../assets/BG.png";
-import InputBox from "../components/InputBox";
+import ChatMessage from "./ChatMessage";
+import BG from "../../../assets/BG.png";
+import InputBox from "../InputBox";
 
-const ChatRoomScreen = () => {
+export default function ChatRoomScreen() {
   const [messages, setMessages] = useState([]);
   const [myId, setMyId] = useState(null);
-
   const route = useRoute();
 
-  const fetchMessages = async () => {
+  async function fetchMessages() {
     const messagesData = await API.graphql(
       graphqlOperation(messagesByChatRoom, {
         chatRoomID: route.params.id,
@@ -23,23 +24,16 @@ const ChatRoomScreen = () => {
       })
     );
 
-    console.log("FETCH MESSAGES");
+    console.log("fetched messages.");
     setMessages(messagesData.data.messagesByChatRoom.items);
-  };
+  }
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
+  async function getMyId() {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    setMyId(userInfo.attributes.sub);
+  }
 
-  useEffect(() => {
-    const getMyId = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      setMyId(userInfo.attributes.sub);
-    };
-    getMyId();
-  }, []);
-
-  useEffect(() => {
+  function subscribeMessages() {
     const subscription = API.graphql(
       graphqlOperation(onCreateMessage)
     ).subscribe({
@@ -52,11 +46,17 @@ const ChatRoomScreen = () => {
         }
 
         fetchMessages();
-        // setMessages([newMessage, ...messages]);
       },
     });
 
+    // for clean up
     return () => subscription.unsubscribe();
+  }
+
+  useEffect(() => {
+    fetchMessages();
+    getMyId();
+    return subscribeMessages();
   }, []);
 
   console.log(`messages in state: ${messages.length}`);
@@ -72,6 +72,4 @@ const ChatRoomScreen = () => {
       <InputBox chatRoomID={route.params.id} />
     </ImageBackground>
   );
-};
-
-export default ChatRoomScreen;
+}

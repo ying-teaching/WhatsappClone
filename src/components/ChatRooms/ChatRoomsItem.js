@@ -7,7 +7,7 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 
-export default function ChatListItem({ chatRoom }) {
+export default function ChatRoomsItem({ chatRoom }) {
   const navigation = useNavigation();
   const [otherUser, setOtherUser] = useState(null);
 
