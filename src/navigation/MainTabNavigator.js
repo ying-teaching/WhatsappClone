@@ -4,6 +4,7 @@ import { Fontisto } from "@expo/vector-icons";
 
 import COLORS from "../constants/Colors";
 import ChatsScreen from "../screens/ChatsScreen";
+import UnderConstructionScreen from "../screens/UnderConstructionScreen";
 
 const MainTab = createMaterialTopTabNavigator();
 
@@ -28,7 +29,7 @@ export default function MainTabNavigator() {
     >
       <MainTab.Screen
         name="Camera"
-        component={ChatsScreen}
+        component={UnderConstructionScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Fontisto name="camera" color={color} size={18} />
@@ -37,8 +38,8 @@ export default function MainTabNavigator() {
         }}
       />
       <MainTab.Screen name="Chats" component={ChatsScreen} />
-      <MainTab.Screen name="Status" component={ChatsScreen} />
-      <MainTab.Screen name="Calls" component={ChatsScreen} />
+      <MainTab.Screen name="Status" component={UnderConstructionScreen} />
+      <MainTab.Screen name="Calls" component={UnderConstructionScreen} />
     </MainTab.Navigator>
   );
 }

@@ -5,7 +5,6 @@ import ChatListItem from "../components/ChatListItem";
 import NewMessageButton from "../components/NewMessageButton";
 
 import { API, graphqlOperation, Auth } from "aws-amplify";
-// import { getUser } from "../graphql/queries"; too deep
 
 export default function ChatsScreen() {
   const [chatRooms, setChatRooms] = useState([]);

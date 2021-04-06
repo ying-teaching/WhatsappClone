@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -18,15 +17,60 @@ import {
   Fontisto,
 } from "@expo/vector-icons";
 
-const InputBox = () => {
+import { API, Auth, graphqlOperation } from "aws-amplify";
+
+import { createMessage, updateChatRoom } from "../../graphql/mutations";
+
+const InputBox = ({ chatRoomId }) => {
   const [message, setMessage] = useState("");
+  const [myUserId, setMyUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userInfo = await Auth.currentAuthenticatedUser();
+      setMyUserId(userInfo.attributes.sub);
+    };
+    fetchUser();
+  }, []);
 
   const onMicrophonePress = () => {
-    console.warn("Record Voice");
+    console.warn("Microphone record");
   };
 
-  const onSendPress = () => {
-    console.warn("Send Message");
+  const updateChatRoomLastMessage = async (messageId) => {
+    try {
+      await API.graphql(
+        graphqlOperation(updateChatRoom, {
+          input: {
+            id: chatRoomID,
+            lastMessageID: messageId,
+          },
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onSendPress = async () => {
+    console.log(`room id: ${chatRoomID} send messsage: ${message} `);
+    try {
+      const newMessageData = await API.graphql(
+        graphqlOperation(createMessage, {
+          input: {
+            content: message,
+            userID: myUserId,
+            chatRoomID,
+          },
+        })
+      );
+
+      await updateChatRoomLastMessage(newMessageData.data.createMessage.id);
+    } catch (e) {
+      console.log(e);
+    }
+
+    setMessage("");
   };
 
   const onPress = () => {
@@ -34,7 +78,6 @@ const InputBox = () => {
       onMicrophonePress();
     } else {
       onSendPress();
-      setMessage("");
     }
   };
 
