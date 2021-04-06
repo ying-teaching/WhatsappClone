@@ -159,4 +159,4 @@ Following the [Amplify document](aws-amplify aws-amplify-react-native @react-nat
 
 add [authentication](https://docs.amplify.aws/start/getting-started/auth/q/integration/react-native#create-authentication-service)
 
-## 4 GraphQL AWS
+`amplify add api` to add GraphQL api. Then create schemas in `amplify/backend/api/whatsappclone/schema.graphql`. Then push the API to aws `amplify push`. Check with `amplify console api`.
