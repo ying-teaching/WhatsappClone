@@ -6,7 +6,7 @@ Run `expo init WhatsappClone` and select the blank JS template.
 
 Then in the project folder, run `yarn web/ios/android` to start a local dev server for the app and display the specicifed platform view. The dev server automatcially compiles files if there is any change.
 
-## 2 Header Navigation
+## 2 UI
 
 Install the required packages.
 
@@ -151,4 +151,8 @@ export default function MainTabNavigator() {
 }
 ```
 
-## Chat List Item
+Then add other screens.
+
+## 3 AWS
+
+Following the [Amplify document](aws-amplify aws-amplify-react-native @react-native-community/netinfo) to create an account and [create a fullstack react native project](https://docs.amplify.aws/start/getting-started/setup/q/integration/react-native).
