@@ -7,19 +7,19 @@ import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 
-const ChatListItem = ({ chatRoom }) => {
+export default function ChatListItem({ chatRoom }) {
   const navigation = useNavigation();
   const [otherUser, setOtherUser] = useState(null);
 
+  async function getOtherUser() {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    if (chatRoom.chatRoomUsers.items[0].user.id === userInfo.attributes.sub) {
+      setOtherUser(chatRoom.chatRoomUsers.items[1].user);
+    } else {
+      setOtherUser(chatRoom.chatRoomUsers.items[0].user);
+    }
+  }
   useEffect(() => {
-    const getOtherUser = async () => {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      if (chatRoom.chatRoomUsers.items[0].user.id === userInfo.attributes.sub) {
-        setOtherUser(chatRoom.chatRoomUsers.items[1].user);
-      } else {
-        setOtherUser(chatRoom.chatRoomUsers.items[0].user);
-      }
-    };
     getOtherUser();
   }, []);
 
@@ -57,6 +57,4 @@ const ChatListItem = ({ chatRoom }) => {
       </View>
     </TouchableWithoutFeedback>
   );
-};
-
-export default ChatListItem;
+}

@@ -3,7 +3,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Fontisto } from "@expo/vector-icons";
 
 import COLORS from "../constants/Colors";
-import ChatsScreen from "../screens/ChatsScreen";
+import ChatRoomsScreen from "../components/ChatRooms/ChatRoomsScreen";
 import UnderConstructionScreen from "../screens/UnderConstructionScreen";
 
 const MainTab = createMaterialTopTabNavigator();
@@ -37,7 +37,7 @@ export default function MainTabNavigator() {
           tabBarLabel: () => null, // hide the tab bar label
         }}
       />
-      <MainTab.Screen name="Chats" component={ChatsScreen} />
+      <MainTab.Screen name="Chats" component={ChatRoomsScreen} />
       <MainTab.Screen name="Status" component={UnderConstructionScreen} />
       <MainTab.Screen name="Calls" component={UnderConstructionScreen} />
     </MainTab.Navigator>
