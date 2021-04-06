@@ -158,3 +158,5 @@ Then add other screens.
 Following the [Amplify document](aws-amplify aws-amplify-react-native @react-native-community/netinfo) to create an account and [create a fullstack react native project](https://docs.amplify.aws/start/getting-started/setup/q/integration/react-native).
 
 add [authentication](https://docs.amplify.aws/start/getting-started/auth/q/integration/react-native#create-authentication-service)
+
+## 4 GraphQL AWS
