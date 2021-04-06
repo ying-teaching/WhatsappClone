@@ -13,6 +13,7 @@ const ContactListItem = ({ user }) => {
 
   const onClick = async () => {
     try {
+      // show check if there is a chatroom between the two users
       //  1. Create a new Chat Room
       const newChatRoomData = await API.graphql(
         graphqlOperation(createChatRoom, {
