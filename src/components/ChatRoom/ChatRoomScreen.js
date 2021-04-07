@@ -16,6 +16,11 @@ export default function ChatRoomScreen() {
   const [myId, setMyId] = useState(null);
   const route = useRoute();
 
+  async function getMyId() {
+    const userInfo = await Auth.currentAuthenticatedUser();
+    setMyId(userInfo.attributes.sub);
+  }
+
   async function fetchMessages() {
     const messagesData = await API.graphql(
       graphqlOperation(messagesByChatRoom, {
@@ -25,13 +30,8 @@ export default function ChatRoomScreen() {
     );
 
     const items = messagesData.data.messagesByChatRoom.items;
-    console.log(`fetched ${items.length} messages.`);
+    console.log(`fetched ${items.length} messages for room ${route.params.id}`);
     setMessages(items);
-  }
-
-  async function getMyId() {
-    const userInfo = await Auth.currentAuthenticatedUser();
-    setMyId(userInfo.attributes.sub);
   }
 
   function subscribeMessages() {
@@ -55,8 +55,8 @@ export default function ChatRoomScreen() {
   }
 
   useEffect(() => {
-    fetchMessages();
     getMyId();
+    fetchMessages();
     return subscribeMessages();
   }, []);
 
@@ -68,7 +68,7 @@ export default function ChatRoomScreen() {
         inverted
       />
 
-      <InputBox chatRoomID={route.params.id} />
+      <InputBox chatRoomId={route.params.id} />
     </ImageBackground>
   );
 }

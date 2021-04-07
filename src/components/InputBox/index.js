@@ -38,7 +38,7 @@ const InputBox = ({ chatRoomId }) => {
       await API.graphql(
         graphqlOperation(updateChatRoom, {
           input: {
-            id: chatRoomID,
+            id: chatRoomId,
             lastMessageID: messageId,
           },
         })
@@ -49,14 +49,14 @@ const InputBox = ({ chatRoomId }) => {
   };
 
   const onSendPress = async () => {
-    console.log(`room id: ${chatRoomID} send messsage: ${message} `);
+    console.log(`room id: ${chatRoomId} send messsage: ${message} `);
     try {
       const newMessageData = await API.graphql(
         graphqlOperation(createMessage, {
           input: {
             content: message,
             userID: myUserId,
-            chatRoomID,
+            chatRoomID: chatRoomId,
           },
         })
       );

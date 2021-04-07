@@ -22,12 +22,14 @@ export default function ChatRoomsScreen() {
       );
 
       setChatRooms(userData.data.getUser.chatRoomUser.items);
+      console.log(chatRooms);
     } catch (e) {
       console.log(e);
     }
   }
 
   useEffect(() => {
+    console.log("About to fetch rooms.");
     fetchChatRooms();
   }, []);
 
