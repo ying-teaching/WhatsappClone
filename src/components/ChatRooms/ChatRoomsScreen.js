@@ -6,7 +6,7 @@ import NewMessageButton from "../NewMessageButton";
 
 import { API, graphqlOperation, Auth } from "aws-amplify";
 
-import getUser from "./getUser";
+import getChatRooms from "./getChatRooms";
 import styles from "./styles";
 
 export default function ChatRoomsScreen() {
@@ -16,7 +16,7 @@ export default function ChatRoomsScreen() {
     try {
       const userInfo = await Auth.currentAuthenticatedUser();
       const userData = await API.graphql(
-        graphqlOperation(getUser, {
+        graphqlOperation(getChatRooms, {
           id: userInfo.attributes.sub,
         })
       );

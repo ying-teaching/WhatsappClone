@@ -7,53 +7,46 @@ import { useNavigation } from "@react-navigation/native";
 
 import { API, graphqlOperation, Auth } from "aws-amplify";
 import { createChatRoom, createChatRoomUser } from "../../graphql/mutations";
+import getChatRoomUsers from "./getChatRoomUsers";
 
 export default function ContactListItem({ user }) {
   const navigation = useNavigation();
 
   const onClick = async () => {
     try {
-      // should check if there is a chatroom between the two users
-      //  1. Create a new Chat Room
-      const newChatRoomData = await API.graphql(
-        graphqlOperation(createChatRoom, {
-          input: {
-            lastMessageID: "zz753fca-e8c3-473b-8e85-b14196e84e16",
-          },
+      const userInfo = await Auth.currentAuthenticatedUser();
+      const myUserId = userInfo.attributes.sub;
+
+      // check if there is a chatroom between the two users
+      const chatRoomUsersData = await API.graphql(
+        graphqlOperation(getChatRoomUsers, {
+          id: myUserId,
         })
       );
 
-      if (!newChatRoomData.data) {
-        console.log(" Failed to create a chat room");
-        return;
+      let chatRoomId;
+      const chatRoomUsers = chatRoomUsersData.data.getUser.chatRoomUser.items;
+      for (const chatRoomUser of chatRoomUsers) {
+        const roomUsers = chatRoomUser.chatRoom.chatRoomUsers.items;
+        const found = roomUsers.find(
+          (roomUser) => roomUser.user.id === user.id
+        );
+        if (found) {
+          chatRoomId = chatRoomUser.chatRoom.id;
+          break;
+        } else {
+        }
       }
 
-      const newChatRoom = newChatRoomData.data.createChatRoom;
-      console.log(newChatRoom);
-
-      // 2. Add `user` to the Chat Room
-      await API.graphql(
-        graphqlOperation(createChatRoomUser, {
-          input: {
-            userID: user.id,
-            chatRoomID: newChatRoom.id,
-          },
-        })
-      );
-
-      //  3. Add authenticated user to the Chat Room
-      const userInfo = await Auth.currentAuthenticatedUser();
-      await API.graphql(
-        graphqlOperation(createChatRoomUser, {
-          input: {
-            userID: userInfo.attributes.sub,
-            chatRoomID: newChatRoom.id,
-          },
-        })
-      );
+      if (chatRoomId) {
+        console.log("Use exsiting chat room.");
+      } else {
+        chatRoomId = await newChatRoom(myUserId);
+        console.log("Created a new chat room.");
+      }
 
       navigation.navigate("ChatRoom", {
-        id: newChatRoom.id,
+        id: chatRoomId,
         name: `With ${user.name}`,
       });
     } catch (e) {
@@ -77,4 +70,44 @@ export default function ContactListItem({ user }) {
       </View>
     </TouchableWithoutFeedback>
   );
+
+  async function newChatRoom(myUserId) {
+    //  1. Create a new Chat Room
+    const newChatRoomData = await API.graphql(
+      graphqlOperation(createChatRoom, {
+        input: {
+          lastMessageID: "zz753fca-e8c3-473b-8e85-b14196e84e16",
+        },
+      })
+    );
+
+    if (!newChatRoomData.data) {
+      console.log(" Failed to create a chat room");
+      return;
+    }
+
+    const newChatRoom = newChatRoomData.data.createChatRoom;
+
+    // 2. Add `user` to the Chat Room
+    await API.graphql(
+      graphqlOperation(createChatRoomUser, {
+        input: {
+          userID: user.id,
+          chatRoomID: newChatRoom.id,
+        },
+      })
+    );
+
+    //  3. Add authenticated user to the Chat Room
+    await API.graphql(
+      graphqlOperation(createChatRoomUser, {
+        input: {
+          userID: myUserId,
+          chatRoomID: newChatRoom.id,
+        },
+      })
+    );
+
+    return newChatRoom.id;
+  }
 }

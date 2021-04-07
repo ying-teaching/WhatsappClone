@@ -1,6 +1,6 @@
 // to reduce the number of level -- we set aws to 2 levels
-const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
+const getChatRooms = /* GraphQL */ `
+  query GetChatRooms($id: ID!) {
     getUser(id: $id) {
       id
       name
@@ -44,4 +44,4 @@ const getUser = /* GraphQL */ `
   }
 `;
 
-export default getUser;
+export default getChatRooms;

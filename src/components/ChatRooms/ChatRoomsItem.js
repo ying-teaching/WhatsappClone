@@ -19,6 +19,7 @@ export default function ChatRoomsItem({ chatRoom }) {
       setOtherUser(chatRoom.chatRoomUsers.items[0].user);
     }
   }
+
   useEffect(() => {
     getOtherUser();
   }, []);
