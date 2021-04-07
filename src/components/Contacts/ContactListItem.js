@@ -64,13 +64,15 @@ export default function ContactListItem({ user }) {
   return (
     <TouchableWithoutFeedback onPress={onClick}>
       <View style={styles.container}>
-        <Image source={{ uri: user.imageUri }} style={styles.avatar} />
+        <View style={styles.lefContainer}>
+          <Image source={{ uri: user.imageUri }} style={styles.avatar} />
 
-        <View style={styles.midContainer}>
-          <Text style={styles.username}>{user.name}</Text>
-          <Text numberOfLines={2} style={styles.status}>
-            {user.status}
-          </Text>
+          <View style={styles.midContainer}>
+            <Text style={styles.username}>{user.name}</Text>
+            <Text numberOfLines={2} style={styles.status}>
+              {user.status}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
