@@ -26,7 +26,7 @@ export default function ChatRoomsItem({ chatRoom }) {
   const onClick = () => {
     navigation.navigate("ChatRoom", {
       id: chatRoom.id,
-      name: otherUser.name,
+      name: `With ${otherUser.name}`,
     });
   };
 
